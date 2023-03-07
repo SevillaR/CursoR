@@ -4,7 +4,7 @@ Repositorio de códigos y datos público del Curso de Introducción a R impartid
 
 ## Enlaces:
 
-- Enlace a las [dispositivas](https://rpubs.com/albtorval/cursoR)
+- Enlace a las [**dispositivas**](https://rpubs.com/albtorval/cursoR)
 
 - Enlace dataset [**Top 100 popular movies from 2003 to 2022 (iMDB)**](https://www.kaggle.com/datasets/georgescutelnicu/top-100-popular-movies-from-2003-to-2022-imdb)
 
