@@ -5,10 +5,6 @@
 
 ### Clase 2
 
-#### Librerías 
-library(tidyverse)
-
-
 #### data.frame
 
 altura <- c(150, 135, 210, 140)
@@ -42,8 +38,7 @@ apply(df, 1, function(ind){ind["peso"]/(ind["altura"]/100)^2}) # admite cualquie
 
 
 #### Lectura de datos
-
-library(skimr)
+library(tidyverse)
 
 movies <- read_csv("movies.csv")
 View(movies)
@@ -61,7 +56,11 @@ View(movies)
 
 movies_nuestro <- movies %>% 
   select(Title, Rating, Year, Runtime, Filming_location, Budget, Income)
+
+
 movies_nuestro %>% head()
+
+library(skimr)
 movies_nuestro %>% skim()  
 
 ## Runtime, budget, income son caracteres  
@@ -99,3 +98,7 @@ movies_nuestro %>%
   group_by(Year) %>% 
   summarise(mean_Runtime  = mean(Runtime),
             number_movies = n() )
+
+
+
+
