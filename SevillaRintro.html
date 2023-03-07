@@ -1177,8 +1177,8 @@ Levels: Pocos &lt; Bastantes &lt; Muchos</code></pre>
 <h3 id="data.frame"><code>data.frame()</code></h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb99"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1"></a>altura <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">150</span>, <span class="dv">135</span>, <span class="dv">210</span>, <span class="dv">140</span>)</span>
-<span id="cb99-2"><a href="#cb99-2"></a>peso <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">65</span>, <span class="dv">61</span>, <span class="dv">100</span>, <span class="dv">65</span>)</span>
-<span id="cb99-3"><a href="#cb99-3"></a>sexo <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"F"</span>, <span class="st">"F"</span>, <span class="st">"M"</span>, <span class="st">"F"</span>)</span>
+<span id="cb99-2"><a href="#cb99-2"></a>peso   <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">65</span>, <span class="dv">61</span>, <span class="dv">100</span>, <span class="dv">65</span>)</span>
+<span id="cb99-3"><a href="#cb99-3"></a>sexo   <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"F"</span>, <span class="st">"F"</span>, <span class="st">"M"</span>, <span class="st">"F"</span>)</span>
 <span id="cb99-4"><a href="#cb99-4"></a>datos.muestra <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(altura, peso, sexo)</span>
 <span id="cb99-5"><a href="#cb99-5"></a>datos.muestra</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1270,10 +1270,10 @@ Carmen    140   65</code></pre>
 </section></section>
 <section>
 <section id="encadenar-operaciones-con-el-operador-tubería-pipe" class="title-slide slide level1 center">
-<h1>Encadenar operaciones con el operador tubería (pipe)</h1>
+<h1>Encadenar operaciones con el operador tubería <em>(pipe)</em></h1>
 <div class="big">
 <center>
-<code>x %&gt;% f(y)</code> <span class="math inline">\(\equiv\)</span> <code>f(x,y)</code>
+<mark><code>x %&gt;% f(y)</code> <span class="math inline">\(\equiv\)</span> <code>f(x,y)</code></mark>
 </center>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb127"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb127-1"><a href="#cb127-1"></a>NUEVOS DATOS <span class="ot">&lt;-</span> ANTIGUOS DATOS <span class="sc">%&gt;%</span></span>
@@ -1288,15 +1288,598 @@ Carmen    140   65</code></pre>
 </div>
 </div>
 </section>
+<section id="ejemplo-películas-más-valoradas-según-imdb" class="slide level2">
+<h2>Ejemplo películas más valoradas según <code>imDB</code></h2>
+<p>Enlace al dataset:</p>
+<center>
+<a href="https://www.kaggle.com/datasets/georgescutelnicu/top-100-popular-movies-from-2003-to-2022-imdb">https://www.kaggle.com/datasets/georgescutelnicu/top-100-popular-movies-from-2003-to-2022-imdb</a>
+</center>
+<div class="grande">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb128"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb128-1"><a href="#cb128-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb128-2"><a href="#cb128-2"></a>movies <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"movies.csv"</span>)</span>
+<span id="cb128-3"><a href="#cb128-3"></a><span class="fu">names</span>(movies)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "Title"             "Rating"            "Year"             
+ [4] "Month"             "Certificate"       "Runtime"          
+ [7] "Directors"         "Stars"             "Genre"            
+[10] "Filming_location"  "Budget"            "Income"           
+[13] "Country_of_origin"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb130"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb130-1"><a href="#cb130-1"></a>movies_nuestro <span class="ot">&lt;-</span> movies <span class="sc">%&gt;%</span> </span>
+<span id="cb130-2"><a href="#cb130-2"></a>  <span class="fu">select</span>(Title, Rating, Year, Runtime, Filming_location, Budget, Income)</span>
+<span id="cb130-3"><a href="#cb130-3"></a>movies_nuestro <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 7
+  Title                      Rating  Year Runtime Filming_location Budget Income
+  &lt;chr&gt;                       &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;            &lt;chr&gt;  &lt;chr&gt; 
+1 Avatar: The Way of Water      7.8  2022 192     New Zealand      $350,… $2,26…
+2 Guillermo del Toro's Pino…    7.6  2022 117     USA              $35,0… $108,…
+3 Bullet Train                  7.3  2022 127     Japan            $85,9… $239,…
+4 The Banshees of Inisherin     7.8  2022 114     Ireland          Unkno… $19,7…
+5 M3gan                         6.4  2022 102     New Zealand      $12,0… $171,…
+6 Emancipation                  6.1  2022 132     Unknown          $120,… Unkno…</code></pre>
+</div>
+</div>
+</div>
+</section>
 <section class="slide level2">
 
-<h3 id="ejemplo-películas-más-valorada-según-imdb">Ejemplo películas más valorada según imDB</h3>
-<p>Enlace al dataset: <a href="https://www.kaggle.com/datasets/georgescutelnicu/top-100-popular-movies-from-2003-to-2022-imdb">https://www.kaggle.com/datasets/georgescutelnicu/top-100-popular-movies-from-2003-to-2022-imdb</a></p>
+<h3 id="ejemplo-películas-más-valoradas-según-imdb-1">Ejemplo películas más valoradas según <code>imDB</code></h3>
+<div class="grande">
 <div class="cell">
-
+<div class="sourceCode cell-code" id="cb132"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb132-1"><a href="#cb132-1"></a><span class="fu">library</span>(skimr)</span>
+<span id="cb132-2"><a href="#cb132-2"></a>movies_nuestro <span class="sc">%&gt;%</span> <span class="fu">skim</span>()  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</div>
+<div class="diminuta">
+<div class="cell">
+<div class="cell-output-display">
 
-<img src="img/sevillaR.png" class="slide-logo r-stretch"><div class="footer footer-default">
+<table style="width: auto;" class="table table-condensed">
+<caption>
+Data summary
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Name
+</td>
+<td style="text-align:left;">
+Piped data
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Number of rows
+</td>
+<td style="text-align:left;">
+2000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Number of columns
+</td>
+<td style="text-align:left;">
+7
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+_______________________
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Column type frequency:
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+character
+</td>
+<td style="text-align:left;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+numeric
+</td>
+<td style="text-align:left;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+________________________
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Group variables
+</td>
+<td style="text-align:left;">
+None
+</td>
+</tr>
+</tbody>
+
+</table>
+<p><strong>Variable type: character</strong></p>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+skim_variable
+</th>
+<th style="text-align:right;">
+n_missing
+</th>
+<th style="text-align:right;">
+complete_rate
+</th>
+<th style="text-align:right;">
+min
+</th>
+<th style="text-align:right;">
+max
+</th>
+<th style="text-align:right;">
+empty
+</th>
+<th style="text-align:right;">
+n_unique
+</th>
+<th style="text-align:right;">
+whitespace
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Title
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+62
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1989
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Runtime
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+113
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Filming_location
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+29
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+97
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Budget
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+15
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+305
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Income
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+14
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1856
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+</tbody>
+
+</table>
+<p><strong>Variable type: numeric</strong></p>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+skim_variable
+</th>
+<th style="text-align:right;">
+n_missing
+</th>
+<th style="text-align:right;">
+complete_rate
+</th>
+<th style="text-align:right;">
+mean
+</th>
+<th style="text-align:right;">
+sd
+</th>
+<th style="text-align:right;">
+p0
+</th>
+<th style="text-align:right;">
+p25
+</th>
+<th style="text-align:right;">
+p50
+</th>
+<th style="text-align:right;">
+p75
+</th>
+<th style="text-align:right;">
+p100
+</th>
+<th style="text-align:left;">
+hist
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Rating
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+6.67
+</td>
+<td style="text-align:right;">
+0.91
+</td>
+<td style="text-align:right;">
+1.9
+</td>
+<td style="text-align:right;">
+6.15
+</td>
+<td style="text-align:right;">
+6.7
+</td>
+<td style="text-align:right;">
+7.30
+</td>
+<td style="text-align:right;">
+9.6
+</td>
+<td style="text-align:left;">
+▁▁▆▇▁
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Year
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+2012.50
+</td>
+<td style="text-align:right;">
+5.77
+</td>
+<td style="text-align:right;">
+2003.0
+</td>
+<td style="text-align:right;">
+2007.75
+</td>
+<td style="text-align:right;">
+2012.5
+</td>
+<td style="text-align:right;">
+2017.25
+</td>
+<td style="text-align:right;">
+2022.0
+</td>
+<td style="text-align:left;">
+▇▇▇▇▇
+</td>
+</tr>
+</tbody>
+
+</table>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="tranformación-de-datos">Tranformación de datos</h3>
+<p><strong>Cuidado:</strong> Runtime, budget, income son caracteres</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb133"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb133-1"><a href="#cb133-1"></a>movies_nuestro <span class="sc">%&gt;%</span> </span>
+<span id="cb133-2"><a href="#cb133-2"></a>  <span class="fu">mutate</span>(<span class="at">Runtime =</span> <span class="fu">as.numeric</span>(Runtime), <span class="at">Budget  =</span> <span class="fu">as.numeric</span>(Budget), <span class="at">Income  =</span> <span class="fu">as.numeric</span>(Income))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2,000 × 7
+   Title                     Rating  Year Runtime Filming_location Budget Income
+   &lt;chr&gt;                      &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;             &lt;dbl&gt;  &lt;dbl&gt;
+ 1 Avatar: The Way of Water     7.8  2022     192 New Zealand          NA     NA
+ 2 Guillermo del Toro's Pin…    7.6  2022     117 USA                  NA     NA
+ 3 Bullet Train                 7.3  2022     127 Japan                NA     NA
+ 4 The Banshees of Inisherin    7.8  2022     114 Ireland              NA     NA
+ 5 M3gan                        6.4  2022     102 New Zealand          NA     NA
+ 6 Emancipation                 6.1  2022     132 Unknown              NA     NA
+ 7 Amsterdam                    6.1  2022     134 USA                  NA     NA
+ 8 Violent Night                6.9  2022     112 Canada               NA     NA
+ 9 The Whale                    7.8  2022     117 USA                  NA     NA
+10 The Fabelmans                7.6  2022     151 USA                  NA     NA
+# … with 1,990 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb135"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb135-1"><a href="#cb135-1"></a><span class="co"># problemas porque mezcla caracteres con números</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb136"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb136-1"><a href="#cb136-1"></a>movies_nuestro <span class="ot">&lt;-</span> movies_nuestro <span class="sc">%&gt;%</span> </span>
+<span id="cb136-2"><a href="#cb136-2"></a>  <span class="fu">mutate</span>(<span class="at">Runtime =</span> <span class="fu">extract_numeric</span>(Runtime), <span class="at">Budget  =</span> <span class="fu">extract_numeric</span>(Budget), <span class="at">Income  =</span> <span class="fu">extract_numeric</span>(Income))</span>
+<span id="cb136-3"><a href="#cb136-3"></a>movies_nuestro</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2,000 × 7
+   Title                   Rating  Year Runtime Filming_location  Budget  Income
+   &lt;chr&gt;                    &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;              &lt;dbl&gt;   &lt;dbl&gt;
+ 1 Avatar: The Way of Wat…    7.8  2022     192 New Zealand       3.5 e8  2.27e9
+ 2 Guillermo del Toro's P…    7.6  2022     117 USA               3.5 e7  1.09e5
+ 3 Bullet Train               7.3  2022     127 Japan             8.59e7  2.39e8
+ 4 The Banshees of Inishe…    7.8  2022     114 Ireland          NA       1.97e7
+ 5 M3gan                      6.4  2022     102 New Zealand       1.2 e7  1.71e8
+ 6 Emancipation               6.1  2022     132 Unknown           1.2 e8 NA     
+ 7 Amsterdam                  6.1  2022     134 USA               8   e7  3.12e7
+ 8 Violent Night              6.9  2022     112 Canada            2   e7  5.96e7
+ 9 The Whale                  7.8  2022     117 USA               1   e7  3.11e7
+10 The Fabelmans              7.6  2022     151 USA               4   e7  9.50e6
+# … with 1,990 more rows</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="películas-suspensas-y-aprobadas">Películas suspensas y aprobadas</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb138"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb138-1"><a href="#cb138-1"></a>movies_nuestro <span class="sc">%&gt;%</span> </span>
+<span id="cb138-2"><a href="#cb138-2"></a>  <span class="fu">filter</span>( Rating <span class="sc">&gt;=</span> <span class="dv">5</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb138-3"><a href="#cb138-3"></a>  <span class="fu">count</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+      n
+  &lt;int&gt;
+1  1931</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb140"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb140-1"><a href="#cb140-1"></a>movies_nuestro <span class="sc">%&gt;%</span> </span>
+<span id="cb140-2"><a href="#cb140-2"></a>  <span class="fu">filter</span>( Rating <span class="sc">&lt;</span> <span class="dv">5</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb140-3"><a href="#cb140-3"></a>  <span class="fu">count</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+      n
+  &lt;int&gt;
+1    68</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb142"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb142-1"><a href="#cb142-1"></a>movies_nuestro <span class="sc">%&gt;%</span> </span>
+<span id="cb142-2"><a href="#cb142-2"></a>  <span class="fu">filter</span>( Rating <span class="sc">&lt;</span> <span class="dv">5</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb142-3"><a href="#cb142-3"></a>  <span class="fu">arrange</span>( Rating )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 68 × 7
+   Title                Rating  Year Runtime Filming_location    Budget   Income
+   &lt;chr&gt;                 &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;                &lt;dbl&gt;    &lt;dbl&gt;
+ 1 Disaster Movie          1.9  2008      87 USA               20000000 34816824
+ 2 Mantus                  2.1  2014      NA USA                 250000       NA
+ 3 Son of the Mask         2.2  2005      94 Australia         84000000 59981548
+ 4 Epic Movie              2.4  2007      86 USA               20000000 87238158
+ 5 Dragonball Evolution    2.6  2009      85 Mexico            30000000 55720772
+ 6 Cats                    2.8  2019     110 UK                95000000 75558925
+ 7 Meet the Spartans       2.8  2008      87 USA               30000000 85897593
+ 8 365 Days                3.3  2020     114 Poland                  NA  9458590
+ 9 Picture of Beauty       3.4  2017      70 Poland              100000       NA
+10 Catwoman                3.4  2004     104 USA              100000000 82102379
+# … with 58 more rows</code></pre>
+</div>
+</div>
+</section></section>
+<section id="películas-con-mayor-beneficio" class="title-slide slide level1 center">
+<h1><span class="reducida">¿Películas con mayor beneficio?</span></h1>
+<div class="grande">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb144"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb144-1"><a href="#cb144-1"></a>movies_nuestro <span class="sc">%&gt;%</span> </span>
+<span id="cb144-2"><a href="#cb144-2"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb144-3"><a href="#cb144-3"></a>  <span class="fu">mutate</span>(<span class="at">Benefit =</span> Income <span class="sc">-</span> Budget) <span class="sc">%&gt;%</span> </span>
+<span id="cb144-4"><a href="#cb144-4"></a>  <span class="fu">arrange</span>( <span class="fu">desc</span>(Benefit) ) <span class="sc">%&gt;%</span> </span>
+<span id="cb144-5"><a href="#cb144-5"></a>  <span class="fu">select</span>(Title, Rating, Benefit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,651 × 3
+   Title                                      Rating    Benefit
+   &lt;chr&gt;                                       &lt;dbl&gt;      &lt;dbl&gt;
+ 1 Avatar                                        7.8 2685917914
+ 2 Avengers: Endgame                             8.4 2441501328
+ 3 Avatar: The Way of Water                      7.8 1917946983
+ 4 Star Wars: Episode VII - The Force Awakens    7.8 1824521700
+ 5 Avengers: Infinity War                        8.4 1727359754
+ 6 Spider-Man: No Way Home                       8.3 1717430023
+ 7 Jurassic World                                6.9 1521537444
+ 8 The Lion King                                 6.8 1403250487
+ 9 Furious 7                                     7.1 1325341399
+10 Top Gun: Maverick                             8.4 1318732821
+# … with 1,641 more rows</code></pre>
+</div>
+</div>
+</div>
+</section>
+
+<section>
+<section id="número-de-pelícuas-y-duración-media-de-las-películas-por-año" class="title-slide slide level1 center">
+<h1><span class="reducida">¿Número de pelícuas y duración media de las películas por año?</span></h1>
+<div class="grande">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb146"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb146-1"><a href="#cb146-1"></a>movies_nuestro <span class="sc">%&gt;%</span> </span>
+<span id="cb146-2"><a href="#cb146-2"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb146-3"><a href="#cb146-3"></a>  <span class="fu">group_by</span>(Year) <span class="sc">%&gt;%</span> </span>
+<span id="cb146-4"><a href="#cb146-4"></a>  <span class="fu">summarise</span>(<span class="at">mean_Runtime  =</span> <span class="fu">mean</span>(Runtime),</span>
+<span id="cb146-5"><a href="#cb146-5"></a>            <span class="at">number_movies =</span> <span class="fu">n</span>() )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 20 × 3
+    Year mean_Runtime number_movies
+   &lt;dbl&gt;        &lt;dbl&gt;         &lt;int&gt;
+ 1  2003         112.            93
+ 2  2004         111.            98
+ 3  2005         112.            94
+ 4  2006         112.            92
+ 5  2007         113.            88
+ 6  2008         108.            96
+ 7  2009         113.            93
+ 8  2010         109.            91
+ 9  2011         112.            92
+10  2012         113.            95
+11  2013         115.            94
+12  2014         115.            89
+13  2015         117.            87
+14  2016         116.            91
+15  2017         118.            77
+16  2018         120.            76
+17  2019         122.            74
+18  2020         109.            32
+19  2021         125.            50
+20  2022         130.            49</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="section-1" class="slide level2 center">
+<h2></h2>
+<center>
+<div class="grande">
+<code>Suficiente por hoy</code>
+</div>
+</center>
+<p><br></p>
+<center>
+<img src="img/sevillaR.png" width="25%">
+</center>
+<p><br></p>
+<center>
+<div class="grande">
+<code>@SevillaR_</code>
+</div>
+</center>
+<p><img src="img/sevillaR.png" class="slide-logo"></p>
+<div class="footer footer-default">
 <p><a href="https://sevillarusers.netlify.app/">sevillarusers.netlify.app</a>&nbsp;&nbsp;&nbsp;</p>
 </div>
 </section></section>
