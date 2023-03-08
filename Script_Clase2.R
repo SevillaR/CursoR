@@ -37,6 +37,9 @@ apply(df, 2, mean) # Medias
 apply(df, 1, function(ind){ind["peso"]/(ind["altura"]/100)^2}) # admite cualquier función (IMC)
 
 
+
+
+
 #### Lectura de datos
 library(tidyverse)
 
